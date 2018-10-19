@@ -1,0 +1,14 @@
+
+
+find_package(OpenSceneGraph REQUIRED osgDB osgGA osgUtil osgText osgViewer osgWidget)
+    
+file(GLOB src_dir src/*.cpp)
+source_group("Source Files" FILES ${src_dir})
+
+file(GLOB include_dir include/*.h)
+source_group("Include Files" FILES ${include_dir})
+
+include_directories("include")
+
+add_library(tool ${src_dir} ${include_dir})
+target_link_libraries(tool ${OPENSCENEGRAPH_LIBRARIES})
