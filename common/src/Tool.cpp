@@ -35,7 +35,7 @@ osg::ref_ptr<osgViewer::Viewer> Tool::GetViewer() {
 	return viewer;
 }
 
-osg::ref_ptr<osg::Node> Tool::CreateQuade() {
+osg::ref_ptr<osg::Node> Tool::CreateGeodePlane() {
 	osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();//定义一个几何体
 	osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array();//定义一个几何体坐标集合
 	v->push_back(osg::Vec3(-1.0, 0.0, -1.0));//左下角坐标点
@@ -62,10 +62,68 @@ osg::ref_ptr<osg::Node> Tool::CreateQuade() {
 	//定义一个几何组结点，并把几何体结点加入到几何组结点当中
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
 	geode->addDrawable(geom.get());
+	geom->setName("TestGeom");
 	return geode.get();
 }
 
-osg::ref_ptr<osg::Node> Tool::CreateShape() {
+osg::ref_ptr<osg::Geometry> Tool::CreateGeometryPlane() {
+	osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();//定义一个几何体
+	osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array();//定义一个几何体坐标集合
+	v->push_back(osg::Vec3(-1.0, 0.0, -1.0));//左下角坐标点
+	v->push_back(osg::Vec3(1.0, 0.0, -1.0));//右下角坐标点
+	v->push_back(osg::Vec3(1.0, 0.0, 1.0));//右上角坐标点
+	v->push_back(osg::Vec3(-1.0, 0.0, 1.0));//左上角坐标点
+	geom->setVertexArray(v.get());//将坐标设置到几何体节点中
+	//定义颜色数组
+	osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array();//定义一个颜色数组颜色
+	c->push_back(osg::Vec4(1.0, 0.0, 0.0, 1.0));//数组的四个参数分别为RGBA，其中A表示透明度
+	c->push_back(osg::Vec4(0.0, 1.0, 0.0, 1.0));
+	c->push_back(osg::Vec4(0.0, 0.0, 1.0, 1.0));
+	c->push_back(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+	geom->setColorArray(c.get());//与几何体中进行关联
+	geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);//设置绑定方式为逐点绑定。
+	//定义法线
+	osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array();//定义了一个法线绑定到该四方体中
+	n->push_back(osg::Vec3(0.0, -1.0, 0.0));//法线为指向Y轴负半轴
+	geom->setNormalArray(n.get());//添加法线到几何体中
+	geom->setNormalBinding(osg::Geometry::BIND_OVERALL);//将法线进行绑定
+	//设置顶点的关联方式，这里是Quad方式，总共有这么些方式：POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,TRIANGLE_STRIP,TRIANGLE_FAN,QUADS,QUAD_STRIP,POLYGON
+	geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
+	return geom;
+}
+
+osg::ref_ptr<osg::Geometry> Tool::CreateGeometryPlane2() {
+	osg::ref_ptr<osg::Geometry> geom = new osg::Geometry();//定义一个几何体
+	osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array();//定义一个几何体坐标集合
+	v->push_back(osg::Vec3(-1.0, 0.0, -1.0));//左下角坐标点
+	v->push_back(osg::Vec3(1.0, 0.0, -1.0));//右下角坐标点
+	v->push_back(osg::Vec3(1.0, 0.0, 1.0));//右上角坐标点
+	v->push_back(osg::Vec3(-1.0, 0.0, 1.0));//左上角坐标点
+	geom->setVertexArray(v.get());//将坐标设置到几何体节点中
+	//定义颜色数组
+	osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array();//定义一个颜色数组颜色
+	c->push_back(osg::Vec4(1.0, 1.0, 1.0, 1.0));//数组的四个参数分别为RGBA，其中A表示透明度
+	c->push_back(osg::Vec4(0.0, 1.0, 0.0, 1.0));
+	c->push_back(osg::Vec4(0.0, 0.0, 1.0, 1.0));
+	c->push_back(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+	geom->setColorArray(c.get());//与几何体中进行关联
+	geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);//设置绑定方式为逐点绑定。
+	//定义法线
+	osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array();//定义了一个法线绑定到该四方体中
+	n->push_back(osg::Vec3(0.0, -1.0, 0.0));//法线为指向Y轴负半轴
+	geom->setNormalArray(n.get());//添加法线到几何体中
+	geom->setNormalBinding(osg::Geometry::BIND_OVERALL);//将法线进行绑定
+	//设置顶点的关联方式，这里是Quad方式，总共有这么些方式：POINTS,LINES,LINE_STRIP,LINE_LOOP,TRIANGLES,TRIANGLE_STRIP,TRIANGLE_FAN,QUADS,QUAD_STRIP,POLYGON
+	//geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
+
+	geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
+
+	return geom;
+}
+
+
+osg::ref_ptr<osg::Geode> Tool::CreateGeodeShape()
+{
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
 	float radius = 0.08;//(以米为单位)
 	float height = 0.1;
