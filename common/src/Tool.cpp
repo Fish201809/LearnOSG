@@ -83,3 +83,40 @@ osg::ref_ptr<osg::Node> Tool::CreateShape() {
 	geode->addDrawable(new osg::ShapeDrawable(new osg::Capsule(osg::Vec3(0.8, 0.0, 0.0), radius, height), hints));
 	return geode.get();
 }
+
+osg::ref_ptr<osg::Group> Tool::CreatGroup() {
+	osg::ref_ptr<osg::Group> root = new osg::Group();
+
+	float radius = 0.08;//(以米为单位)
+	float height = 0.1;
+	osg::TessellationHints *hints = new osg::TessellationHints();
+	hints->setDetailRatio(0.5);//表示模型的粗细度。值越大精细度就越大。打个比方，当精细度小时，一个球可能只有几条线组成，很不圆。但是当精细度大时就十分像个球了。
+
+	osg::ref_ptr<osg::Geode> sphere = new osg::Geode;
+	sphere->addDrawable(new osg::ShapeDrawable(new osg::Sphere(osg::Vec3(0.0, 0.0, 0.0), radius), hints));
+	sphere->setName("spere");
+	//以(0.2,0,0)为坐标，以0.16为盒心，以长0.16米为长，绘制一个立方体
+	osg::ref_ptr<osg::Geode> box = new osg::Geode;
+	box->addDrawable(new osg::ShapeDrawable(new osg::Box(osg::Vec3(0.2, 0.0, 0.0), 2 * radius), hints));
+	box->setName("box");
+	//以底面圆心(0.2,0,0)为坐标，半径为0.08米为圆心，以0.1米为高度，绘制一个圆锥
+	osg::ref_ptr<osg::Geode> cone = new osg::Geode;
+	cone->addDrawable(new osg::ShapeDrawable(new osg::Cone(osg::Vec3(0.4, 0.0, 0.0), radius, height), hints));
+	cone->setName("cone");
+	//以底面圆心(0.6,0,0)为坐标，半径为0.08米为圆心，以0.1米为高度，绘制一个圆柱体
+	osg::ref_ptr<osg::Geode> cylinder = new osg::Geode;
+	cylinder->addDrawable(new osg::ShapeDrawable(new osg::Cylinder(osg::Vec3(0.6, 0.0, 0.0), radius, height), hints));
+	cylinder->setName("cylinder");
+	//以圆心(0.8,0,0)为坐标，半径为0.08米为圆心，以0.1米为高度，绘制一个胶囊体
+	osg::ref_ptr<osg::Geode> capsule = new osg::Geode;
+	capsule->addDrawable(new osg::ShapeDrawable(new osg::Capsule(osg::Vec3(0.8, 0.0, 0.0), radius, height), hints));
+	capsule->setName("capsule");
+
+
+	root->addChild(box);
+	root->addChild(sphere);
+	root->addChild(cone);
+	root->addChild(cylinder);
+	root->addChild(capsule);
+	return root;
+}
