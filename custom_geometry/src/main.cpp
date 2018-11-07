@@ -1,9 +1,6 @@
 ﻿#include "Tool.h"
 
 
-osg::Geometry GetCube() {
-
-}
 
 int main(int argc, char *argv[]) {
 	

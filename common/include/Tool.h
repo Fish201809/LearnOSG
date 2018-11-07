@@ -13,8 +13,8 @@
 #include <OpenThreads/Thread>
 #include <osgViewer/ViewerEventHandlers>
 #include <osg/PolygonMode>
-
-
+#include <osg/Program>
+#include <osg/Shader>
 class Tool
 {
 public:

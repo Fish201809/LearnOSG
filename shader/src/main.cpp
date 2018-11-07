@@ -16,9 +16,8 @@ static char * fragShader = {
 	"}\n"
 };
 int main() {
-	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer;
+	osg::ref_ptr<osgViewer::Viewer> viewer = Tool::GetViewer();
 	osg::ref_ptr<osg::Node> node = Tool::CreateGeodePlane();
-
 
 	osg::StateSet * ss = node->getOrCreateStateSet();
 	osg::Program * program = new osg::Program;

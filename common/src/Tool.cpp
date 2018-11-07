@@ -121,9 +121,7 @@ osg::ref_ptr<osg::Geometry> Tool::CreateGeometryPlane2() {
 	return geom;
 }
 
-
-osg::ref_ptr<osg::Geode> Tool::CreateGeodeShape()
-{
+osg::ref_ptr<osg::Geode> Tool::CreateGeodeShape() {
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
 	float radius = 0.08;//(以米为单位)
 	float height = 0.1;
@@ -169,7 +167,6 @@ osg::ref_ptr<osg::Group> Tool::CreatGroup() {
 	osg::ref_ptr<osg::Geode> capsule = new osg::Geode;
 	capsule->addDrawable(new osg::ShapeDrawable(new osg::Capsule(osg::Vec3(0.8, 0.0, 0.0), radius, height), hints));
 	capsule->setName("capsule");
-
 
 	root->addChild(box);
 	root->addChild(sphere);

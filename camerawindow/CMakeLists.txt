@@ -1,5 +1,5 @@
 
-set(EXE_PROJECT_NAME "visitor")
+set(EXE_PROJECT_NAME "camerawindow")
 
 #OSG Seting
 find_package(OpenSceneGraph REQUIRED osgDB osgGA osgUtil osgText osgViewer osgWidget)
